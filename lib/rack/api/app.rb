@@ -76,7 +76,7 @@ module Rack
       # Merge all params into one single hash.
       #
       def params
-        @params ||= HashWithIndifferentAccess.new(request.params.merge(env["rack.routing_args"]))
+        @params ||= HashWithIndifferentAccess.new(request.params.merge(env["rack.routing_args"]).merge(env["action_dispatch.request.request_parameters"] || {}))
       end
 
       # Return a request object.

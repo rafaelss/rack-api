@@ -24,4 +24,9 @@ describe Rack::API, "Params" do
     post "/v1/users", :name => "John Doe"
     last_response.body.should == {"name" => "John Doe"}.to_json
   end
+
+  it "detects post params when running inside a rails app" do
+    post "/v1/users", {}, { "action_dispatch.request.request_parameters" => { :name => "John Doe" } }
+    last_response.body.should == {"name" => "John Doe"}.to_json
+  end
 end
